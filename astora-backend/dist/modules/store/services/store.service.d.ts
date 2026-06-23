@@ -1,0 +1,52 @@
+import { Repository } from 'typeorm';
+import { Product } from '../entities/product.entity';
+import { Category } from '../entities/category.entity';
+import { Customer } from '../entities/customer.entity';
+import { Order, OrderItem } from '../entities/order.entity';
+import { Coupon } from '../entities/coupon.entity';
+import { PaginatedResponseDto } from '../../../common/dto/common.dto';
+export declare class StoreService {
+    private productRepository;
+    private categoryRepository;
+    private customerRepository;
+    private orderRepository;
+    private orderItemRepository;
+    private couponRepository;
+    constructor(productRepository: Repository<Product>, categoryRepository: Repository<Category>, customerRepository: Repository<Customer>, orderRepository: Repository<Order>, orderItemRepository: Repository<OrderItem>, couponRepository: Repository<Coupon>);
+    createProduct(userId: string, data: Partial<Product>): Promise<Product>;
+    getProducts(userId: string, page?: number, limit?: number, search?: string): Promise<PaginatedResponseDto<Product>>;
+    getProduct(id: string, userId: string): Promise<Product>;
+    updateProduct(id: string, userId: string, data: Partial<Product>): Promise<Product>;
+    deleteProduct(id: string, userId: string): Promise<void>;
+    updateInventory(id: string, userId: string, quantity: number): Promise<Product>;
+    createCategory(userId: string, data: Partial<Category>): Promise<Category>;
+    getCategories(userId: string): Promise<Category[]>;
+    getCategory(id: string, userId: string): Promise<Category>;
+    updateCategory(id: string, userId: string, data: Partial<Category>): Promise<Category>;
+    deleteCategory(id: string, userId: string): Promise<void>;
+    createCustomer(userId: string, data: Partial<Customer>): Promise<Customer>;
+    getCustomers(userId: string, page?: number, limit?: number, search?: string): Promise<PaginatedResponseDto<Customer>>;
+    getCustomer(id: string, userId: string): Promise<Customer>;
+    updateCustomer(id: string, userId: string, data: Partial<Customer>): Promise<Customer>;
+    addCustomerPoints(id: string, points: number): Promise<Customer>;
+    createOrder(userId: string, data: {
+        customerId?: string;
+        items: {
+            productId: string;
+            quantity: number;
+            unitPrice: number;
+        }[];
+        shippingAddress?: string;
+        shippingName?: string;
+        shippingPhone?: string;
+        notes?: string;
+    }): Promise<Order>;
+    getOrders(userId: string, page?: number, limit?: number, status?: string): Promise<PaginatedResponseDto<Order>>;
+    getOrder(id: string, userId: string): Promise<Order>;
+    updateOrderStatus(id: string, userId: string, status: any): Promise<Order>;
+    createCoupon(userId: string, data: Partial<Coupon>): Promise<Coupon>;
+    getCoupons(userId: string): Promise<Coupon[]>;
+    validateCoupon(code: string, userId: string, orderTotal?: number): Promise<Coupon | null>;
+    applyCoupon(code: string): Promise<number>;
+    getStoreAnalytics(userId: string): Promise<any>;
+}

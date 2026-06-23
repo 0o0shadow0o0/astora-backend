@@ -1,0 +1,30 @@
+import { BaseEntity } from '../../../common/entities/base.entity';
+import { User } from '../../users/entities/user.entity';
+import { Category } from './category.entity';
+export declare class Product extends BaseEntity {
+    name: string;
+    description?: string;
+    sku: string;
+    slug?: string;
+    price: number;
+    salePrice?: number;
+    stockQuantity: number;
+    lowStockThreshold: number;
+    image?: string;
+    images?: string[];
+    isActive: boolean;
+    isFeatured: boolean;
+    isDigital: boolean;
+    weight?: number;
+    weightUnit?: string;
+    width?: number;
+    height?: number;
+    depth?: number;
+    currency: string;
+    attributes?: Record<string, any>;
+    tags?: string[];
+    user: User;
+    userId: string;
+    category?: Category;
+    categoryId?: string;
+}
